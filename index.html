@@ -10,36 +10,39 @@ body {
   margin: 0 auto;
   max-width: 1200px;
   padding: 0 20px;
-  overflow:hidden
+  overflow:auto
 }
 
 #chatArea {
     overflow-y: auto;
     position: relative;
     width: 1200px;
-    top: 67.80px;
+    top: 100.80px;
     bottom: 100px;
 }
 .container {
   margin: 0;
   position: absolute;
-  right: 50%;
+  right: 100%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
 </style>
 </head>
-<body style="color: white;">
+<body style="background-image: url('https://i.redd.it/qwd83nc4xxf41.jpg')">
 
- <header style="position: fixed;background-color:black;padding: 0 20px;width: 840px;font-family:'Courier New', cursive; height: 50px;"><h2>Smart Photo Gallery</h2>
- </header>
+<center>
+<h2>Smart Photo Gallery</h2>
+</center>
 
-<div id="chatArea" style="background-image: url('https://wallpaperaccess.com/full/1467776.jpg')">
+
+<div id="chatArea" style="background-image: url('https://i.redd.it/qwd83nc4xxf41.jpg');background-repeat: repeat-y;overflow: auto">
     <form>
+
         <label for="transcript" style="font-family:'Courier New', cursive, sans-serif; font-size: 25px;">Type Below or Speak:</label>
         <input type="text" id="transcript" name="transcript" size="100">
-        <middle>
-        <div class="container">
+       
+        <div class="row">
           <div class="col">
               <button id="start-button" class="button-xl" title="Start Transcription">
                   <i class="fa fa-microphone"></i> Start
@@ -52,17 +55,20 @@ body {
               </button>
           </div>
       </div>
-    </middle>
-        <input type="button" id="submit" style="height:50px;width:108px" value="submit" onclick="submitChat()">
+    
+        <br>
+        <center>
+        <input type="button" id="submit" style="font-family:'Courier New', cursive, sans-serif; font-size: 25px;height:50px;width:108px" value="Submit" onclick="submitChat()">
+      </center>
         <br>
         <br>
-        <label for="img">Select image:</label>
+        <label style="font-family:'Courier New', cursive, sans-serif; font-size: 25px;" for="img">Select image:</label>
         <input type="file" id="img_uploaded" name="img_uploaded" accept="image/jpeg" ">
         <br>
         <br>
         <br>
         <br>
-        <label for="img">Custom Labels:(Optional)</label>
+        <label style="font-family:'Courier New', cursive, sans-serif; font-size: 25px;" for="img">Custom Labels:(Optional)</label>
         <br>
         
         <input type="text" id="customlabels" name="customlabels" size="150">
@@ -71,7 +77,7 @@ body {
         <p style="background-color: transparent;display: block;color: red;" id="error" name="error" ></p>
         <br>
         
-        <input type="button" id="uploadimage" style="height:50px;width:108px" value="UploadImage" onclick="submitUpload()">
+        <input type="button" id="uploadimage" style="font-family:'Courier New', cursive, sans-serif; font-size: 25px;height:50px;width:108px" value="UploadImage" onclick="submitUpload()">
     </form>
     <br>
     <div id="img_area">
@@ -118,10 +124,10 @@ function submitChat(e) {
       // alert('Passed')
       console.log(json)
       img_area = document.getElementById('img_area')
-      img_area.innerHTML=""
+      img_area.innerHTML = '';
       if(json.length>0)
       {
-
+        img_area = document.getElementById('img_area')
         for (let step = 0; step < json.length; step++) {
           // Runs 5 times, with values of step 0 through 4.
           var userImg = document.createElement("IMG");
@@ -145,7 +151,7 @@ function submitChat(e) {
 
 
 function submitUpload(evt) {
-  alert("called")
+  
   var filesSelected = document.getElementById("img_uploaded").files;
   var labels = document.getElementById("customlabels").value;
   var error = document.getElementById("error");
@@ -191,6 +197,7 @@ function submitUpload(evt) {
             apigClient.uploadImagePost(params, body)
             .then(function(result){
               console.log('went to then')
+              alert("Image Uploaded")
             }).catch( function(result){
               console.log('went to catch')
             });
